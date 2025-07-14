@@ -1,10 +1,39 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Gallery
 from django.contrib.auth import login,authenticate
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+import os
 # Create your views here.
+def delete(request,id):
+        
+        if request.method=="POST":
+            image=get_object_or_404(Gallery,id=id,user=request.user)
+            if image.Image and os.path.isfile(image.Image.path):
+                os.remove(image.Image.path)
+            image.delete()
+            return redirect('gallery') 
+
+
+def update(request,id):
+   gallery_items=get_object_or_404(Gallery,id=id,user=request.user)
+    
+   if request.method=="POST":
+       gallery_items.Title=request.POST.get('title')
+       gallery_items.Caption=request.POST.get('caption')
+       image=request.FILES.get('image')
+       if(image):
+        gallery_items.Image=image
+       gallery_items.save()
+       return redirect('gallery')  
+   
+   
+   
+   
+   
+   return render(request,'update.html',{"items":gallery_items})
+
 def landing(request):
 
     return render (request,'home.html')

@@ -31,13 +31,27 @@
         <div class="p-4">
           <h2 class="text-xl font-semibold mb-2">{{ item.Title }}</h2>
           <p class="text-gray-700 text-sm">{{ item.Caption }}</p>
+          
+          <div class="flex gap-4 mt-6 justify-center items-center  ">
+            
+            <form action="{% url 'update' item.id %}" method="GET">
+              
+              <button class="bg-blue-300 px-4 py-2 text-sm rounded  cursor-pointer inline-block ">Update</button>
+            </form>
+            <form action="{% url 'delete' item.id %}" method="POST" onsubmit="return confirm('Are you sure ?')">
+              {% csrf_token %}
+              <button class="bg-blue-300 px-4 py-2 text-sm rounded  cursor-pointer inline-block ">Delete</button>
+            </form>
+            
+        </div>
+          
         </div>
       </div>
     {% empty %}
       <p class="col-span-full text-center text-gray-500">No images found.</p>
-    {% endfor %}
+  
   </div>
-
+    {% endfor %}
   <!-- Modal -->
   <div id="imageModal" 
        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden z-50"

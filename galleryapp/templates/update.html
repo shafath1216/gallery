@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{% static 'dist/styles.css' %}" />
+  <title>Update</title>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-6">Update Image</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'update' items.id %}" class="space-y-4">
+      {% csrf_token %}
+      <label class="block">
+        <span class="font-semibold">Title</span>
+        <input type="text" name="title" value="{{items.Title}}" required class="w-full p-2 border rounded mt-1" />
+      </label>
+      <label class="block">
+        <span class="font-semibold">Caption</span>
+        <textarea name="caption" rows="3" required class="w-full p-2 border rounded mt-1">{{items.Caption}}</textarea>
+      </label>
+      {% if items.Image %}
+      <img src="{{items.Image.url}}" class="mb-4 max-h-5" >
+      {% endif %}
+      
+      <label class="block">
+        <span class="font-semibold">Change Image</span>
+        <input type="file" name="image" accept="image/*"   class="mt-1" />
+      </label>
+      
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+        Update
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

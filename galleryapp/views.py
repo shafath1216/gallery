@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import os
+from django.views.decorators.cache import never_cache
 # Create your views here.
 def delete(request,id):
         
@@ -65,6 +66,7 @@ def signup(request):
 
     return render(request, 'signup.html')     
 
+@never_cache
 def login_view(request):
   if request.method == 'POST':
       username = request.POST.get('username')

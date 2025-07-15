@@ -1,34 +1,69 @@
-{% load static %}
+{% load static %} <!-- Load Django's static template tag to access static files -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic page configuration -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Link to compiled Tailwind CSS -->
   <link rel="stylesheet" href="{% static 'dist/styles.css' %}" />
   <title>Upload Image</title>
 </head>
-<body class="bg-gray-100 min-h-screen p-6">
 
-  <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-2xl font-bold mb-6">Upload New Image</h2>
-    <form method="POST" enctype="multipart/form-data" action="{% url 'upload' %}" class="space-y-4">
+<body class="bg-gradient-to-br from-purple-300 via-pink-200 to-indigo-300 min-h-screen flex items-center justify-center p-6">
+
+  <!-- Centered container for the form -->
+  <div class="bg-white bg-opacity-90 backdrop-blur-md rounded-3xl shadow-2xl max-w-md w-full p-10">
+
+    <!-- Page heading -->
+    <h2 class="text-4xl font-extrabold mb-10 text-center text-gray-900 tracking-wide">Upload New Image</h2>
+
+    <!-- Upload form -->
+    <form method="POST"
+          enctype="multipart/form-data"
+          action="{% url 'upload' %}"
+          class="space-y-6"
+    >
       {% csrf_token %}
+
+      <!-- Title input -->
       <label class="block">
-        <span class="font-semibold">Title</span>
-        <input type="text" name="title" required class="w-full p-2 border rounded mt-1" />
+        <span class="font-semibold text-gray-700 mb-2 block">Title</span>
+        <input type="text" name="title" required
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+                      focus:outline-none focus:ring-4 focus:ring-purple-400 focus:border-transparent transition" />
       </label>
+
+      <!-- Caption textarea -->
       <label class="block">
-        <span class="font-semibold">Caption</span>
-        <textarea name="caption" rows="3" required class="w-full p-2 border rounded mt-1"></textarea>
+        <span class="font-semibold text-gray-700 mb-2 block">Caption</span>
+        <textarea name="caption" rows="4" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+                         focus:outline-none focus:ring-4 focus:ring-purple-400 focus:border-transparent transition resize-none"></textarea>
       </label>
+
+      <!-- File input -->
       <label class="block">
-        <span class="font-semibold">Select Image</span>
-        <input type="file" name="image" accept="image/*" required class="mt-1" />
+        <span class="font-semibold text-gray-700 mb-2 block">Select Image</span>
+        <input type="file" name="image" accept="image/*" required
+               class="block w-full text-gray-700
+                      file:mr-4 file:py-2 file:px-4
+                      file:rounded-full file:border-0
+                      file:text-sm file:font-semibold
+                      file:bg-purple-600 file:text-white
+                      hover:file:bg-purple-700
+                      transition cursor-pointer" />
       </label>
-      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-        Upload
+
+      <!-- Submit button -->
+      <button type="submit"
+              class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl shadow-lg transition duration-300">
+        Upload Image
       </button>
     </form>
+
   </div>
 
 </body>

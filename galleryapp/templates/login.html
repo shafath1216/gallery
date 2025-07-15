@@ -1,31 +1,61 @@
-{% load static %}
+{% load static %} <!-- Loads static files using Django's template tag -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Link to Tailwind CSS from static folder -->
   <link rel="stylesheet" href="{% static 'dist/styles.css' %}" />
   <title>Login</title>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
 
-  <form method="POST" class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+<body class="bg-gradient-to-br from-purple-700 via-pink-500 to-red-400 flex items-center justify-center min-h-screen px-4">
+
+  <!-- Login Form Container -->
+  <form method="POST" class="bg-white bg-opacity-90 backdrop-blur-md p-10 rounded-2xl shadow-xl max-w-md w-full">
+    <h2 class="text-3xl font-extrabold mb-8 text-center text-gray-900 tracking-wide">Welcome Back</h2>
+
     {% csrf_token %}
 
+    <!-- Display error messages -->
     {% if messages %}
       {% for message in messages %}
-        <p class="text-red-500 mb-2">{{ message }}</p>
+        <p class="text-red-600 mb-4 font-semibold text-center">{{ message }}</p>
       {% endfor %}
     {% endif %}
 
-    <label class="block mb-2">Username</label>
-    <input type="text" name="username" class="w-full mb-4 p-2 border rounded" required>
+    <!-- Username Input -->
+    <label for="username" class="block text-gray-700 font-semibold mb-2">Username</label>
+    <input
+      id="username"
+      type="text"
+      name="username"
+      class="w-full px-4 py-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+      placeholder="Enter your username"
+      required
+      autocomplete="username"
+    />
 
-    <label class="block mb-2">Password</label>
-    <input type="password" name="password" class="w-full mb-4 p-2 border rounded" required>
+    <!-- Password Input -->
+    <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+    <input
+      id="password"
+      type="password"
+      name="password"
+      class="w-full px-4 py-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+      placeholder="Enter your password"
+      required
+      autocomplete="current-password"
+    />
 
-    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg shadow-md transition duration-300"
+    >
       Log In
     </button>
   </form>

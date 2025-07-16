@@ -12,7 +12,7 @@ from django.views.decorators.http import require_POST
 @require_POST
 def logout_view(request):
     logout(request)
-    return redirect('login')  # redirect to your login page or homepage
+    return redirect('home')  # redirect to your login page or homepage
 
 
 
